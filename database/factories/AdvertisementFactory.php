@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Advertisement;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -28,6 +29,7 @@ class AdvertisementFactory extends Factory
     {
         return $this->afterMaking(function (Advertisement $advertisement) {
             $advertisement->category()->associate(Category::all()->random());
+            $advertisement->user()->associate(User::all()->random());
         });
     }
 }
