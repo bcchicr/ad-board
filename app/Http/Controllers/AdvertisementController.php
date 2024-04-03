@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAdvertisementRequest;
 use App\Models\Advertisement;
 use App\Models\SuperCategory;
+use App\Services\AdvertisementService;
 use Illuminate\Http\Request;
 
 class AdvertisementController extends Controller
@@ -18,7 +19,7 @@ class AdvertisementController extends Controller
             ->latest()
             ->paginate(15);
 
-        return view('ads.index', compact('advertisements'));
+        return view('advertisements.index', compact('advertisements'));
     }
 
     /**
@@ -27,15 +28,20 @@ class AdvertisementController extends Controller
     public function create()
     {
         $superCategories = SuperCategory::all();
-        return view('ads.create', compact('superCategories'));
+        return view('advertisements.create', compact('superCategories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAdvertisementRequest $request)
-    {
-        dd($request);
+    public function store(
+        StoreAdvertisementRequest $request,
+        AdvertisementService $advertisementService
+    ) {
+        if (!$advertisementService->store($request->getDTO())) {
+            return redirect()->back();
+        }
+        return redirect()->route('ads.index');
     }
 
     /**
@@ -43,7 +49,7 @@ class AdvertisementController extends Controller
      */
     public function show(Advertisement $advertisement)
     {
-        return view('ads.show', compact('advertisement'));
+        return view('advertisements.show', compact('advertisement'));
     }
 
     /**

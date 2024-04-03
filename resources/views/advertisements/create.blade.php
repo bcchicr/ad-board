@@ -14,7 +14,7 @@
       </div>
       <div class="mb-4">
         <label for="category-field" class="form-label">Категория:</label>
-        <select class="form-select" name="category" id="category-field">
+        <select class="form-select" name="category-id" id="category-field">
           @foreach ($superCategories as $superCategory)
             <optgroup label="{{ $superCategory->name }}">
               @foreach ($superCategory->categories as $category)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\DTO\StoreAdvertisementDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreAdvertisementRequest extends FormRequest
@@ -24,7 +25,16 @@ class StoreAdvertisementRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
-            'category' => ['required', 'exists:categories,id']
+            'category-id' => ['required', 'exists:categories,id']
         ];
+    }
+
+    public function getDTO(): StoreAdvertisementDTO
+    {
+        return new StoreAdvertisementDTO(
+            $this->get('title'),
+            $this->get('content'),
+            $this->get('category-id')
+        );
     }
 }

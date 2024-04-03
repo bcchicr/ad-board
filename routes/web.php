@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdvertisementController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,4 +17,20 @@ Route::controller(AdvertisementController::class)
         Route::get('/advertisements/{advertisement}', 'show')->name('show');
         // Route::name('ads.')->group(function () {
         // });
+    });
+
+Route::controller(UserController::class)
+    ->name('users.')
+    ->group(function () {
+        Route::middleware('auth')->group(function () {
+            Route::post('/logout', 'logout')->name('logout');
+        });
+
+        Route::middleware('guest')->group(function () {
+            Route::get('/register', 'create')->name('create');
+            Route::post('/users', 'store')->name('store');
+
+            Route::get('/login', 'login')->name('login');
+            Route::post('/users/authenticate', 'authenticate')->name('authenticate');
+        });
     });
