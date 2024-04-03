@@ -20,11 +20,12 @@ class AdminSeeder extends Seeder
         }
         $adminRole = Role::query()->where('name', 'admin')->firstOrFail();
 
-        $admin = new User();
-        $admin->name = config('admin.name');
-        $admin->password = config('admin.password');
+        $admin =  User::query()
+            ->firstOrNew(
+                ['name' => config('admin.name'),],
+                ['password' => config('admin.password')]
+            );
         $admin->role()->associate($adminRole);
-
         $admin->save();
     }
     private function hasCredentials(): bool
