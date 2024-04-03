@@ -27,16 +27,6 @@ class Advertisement extends Model
         }
         $query->where('title', 'LIKE', '%' . $searchValue . '%');
     }
-    public function scopeCategoryFilter(
-        Builder $query,
-        ?string $category,
-    ) {
-        if (is_null($category)) {
-            return;
-        }
-        $category = Category::query()->find($category);
-        $query->whereBelongsTo($category);
-    }
 
     public function scopeSuperCategoryFilter(
         Builder $query,
@@ -45,10 +35,26 @@ class Advertisement extends Model
         if (is_null($superCategory)) {
             return;
         }
-        $superCategory = SuperCategory::query()->find($superCategory);
+        $superCategory = SuperCategory::query()
+            ->where('name', $superCategory)
+            ->firstOrFail();
         $categories = $superCategory->categories;
         $query->whereBelongsTo($categories);
     }
+
+    public function scopeCategoryFilter(
+        Builder $query,
+        ?string $category,
+    ) {
+        if (is_null($category)) {
+            return;
+        }
+        $category = Category::query()
+            ->where('name', $category)
+            ->firstOrFail();
+        $query->whereBelongsTo($category);
+    }
+
 
     public function scopePublished(Builder $query)
     {

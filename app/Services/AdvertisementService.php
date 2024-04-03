@@ -26,17 +26,18 @@ final class AdvertisementService
     }
     public function getPublished(GetPublishedAdvertisementsDTO $request)
     {
-        $searchValue = $request->search;
-        $categoryId = $request->categoryId;
-        $superCategoryId = $request->superCategoryId;
+        $query = Advertisement::query()
+            ->published();
 
-        return Advertisement::query()
-            ->published()
-            ->search($searchValue)
-            ->superCategoryFilter($superCategoryId)
-            ->categoryFilter($request->categoryId)
-            ->latest()
-            ->paginate(15)
-            ->withQueryString();
+        $superCategory = $request->superCategory;
+        if ($superCategory) {
+            $query->superCategoryFilter($superCategory);
+        }
+
+        $category = $request->category;
+        if ($category) {
+            $query->categoryFilter($category);
+        }
+        return $query;
     }
 }
