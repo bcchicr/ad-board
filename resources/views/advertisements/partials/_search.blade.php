@@ -2,7 +2,7 @@
   <x-card class="mb-2 p-0 ">
     <div class="input-group">
       <input class="form-control form-control-lg border-0 rounded-start-1" name="search" type="text"
-        placeholder="Поиск..." value="{{ $searchValue ?? '' }}">
+        placeholder="Поиск..." value="{{ Request::get('search') ?? '' }}">
       {{-- <input type="hidden" name="super-category" value="{{ $superCategoryId ?? '' }}"> --}}
       {{-- <input type="hidden" name="category" value="{{ $categoryId ?? '' }}"> --}}
       <button class="btn btn-outline-primary border-0 border-start rounded-end-1" type="submit">Поиск</button>

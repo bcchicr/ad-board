@@ -15,7 +15,11 @@ Route::controller(AdvertisementController::class)
             Route::get('/advertisements/create', 'create')->name('create');
             Route::post('/advertisements', 'store')->name('store');
         });
-        
+
+        Route::middleware('admin')->group(function () {
+            Route::get('/advertisements/waiting', 'waiting')->name('waiting');
+        });
+
         Route::get('/advertisements/{advertisement}', 'show')->name('show');
         Route::get('/advertisements/{superCategory?}/{category?}', 'index')->name('index');
     });

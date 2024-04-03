@@ -30,6 +30,7 @@ class GetPublishedAdvertisementsRequest extends FormRequest
     public function getDTO(): GetPublishedAdvertisementsDTO
     {
         return new GetPublishedAdvertisementsDTO(
+            $this->get('search'),
             $this->route('superCategory'),
             $this->route('category')
         );

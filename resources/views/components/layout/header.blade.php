@@ -10,6 +10,18 @@
     <div class="collapse navbar-collapse fs-5" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         @auth
+          @if (Auth::user()->isAdmin())
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Админ-панель
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ route('ads.waiting') }}">Предложенные</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+              </ul>
+            </li>
+          @endif
           <li class="nav-item">
             <x-control-button class="nav-link" :action="route('users.logout')" text="Выйти" />
           </li>

@@ -17,25 +17,23 @@ class AdvertisementController extends Controller
     public function index(
         GetPublishedAdvertisementsRequest $request,
         AdvertisementService $advertisementService,
-        ?string $superCategory = null,
-        ?string $category = null
     ) {
         $advertisements = $advertisementService
-            ->getPublished($request->getDTO());
-
-        $searchValue = $request->input('search');
-        $advertisements = $advertisements
-            ->search($searchValue)
-            ->latest()
-            ->paginate(15)
-            ->withQueryString();
+            ->getPublished($request->getDTO())
+            ->paginate(15);
 
         return view('advertisements.index', compact(
             'advertisements',
-            'searchValue',
-            'superCategory',
-            'category'
         ));
+    }
+
+    public function waiting()
+    {
+        $advertisements = Advertisement::query()
+            ->waiting()
+            ->latest()
+            ->paginate(15);
+        return view('advertisements.waiting', compact('advertisements'));
     }
 
     /**
