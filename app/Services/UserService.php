@@ -14,12 +14,11 @@ final class UserService
         StoreUserDTO $request,
         UserRole $role = UserRole::USER
     ): bool {
-        $role = Role::query()->where('name', $role)->firstOrFail();
 
         $user = new User();
         $user->name = $request->name;
         $user->password = $request->password;
-        $user->role()->associate($role);
+        $user->role = $role;
 
         if (!$user->save()) {
             return false;

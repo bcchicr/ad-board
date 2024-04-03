@@ -6,6 +6,7 @@ use App\DTO\StoreAdvertisementDTO;
 use App\Models\Advertisement;
 use App\Models\Category;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 final class AdvertisementService
 {
@@ -19,7 +20,7 @@ final class AdvertisementService
         $advertisement->content = $request->content;
         $advertisement->category()->associate($category);
 
-        $advertisement->user()->associate(User::all()->random());
+        $advertisement->user()->associate(Auth::user());
 
         return $advertisement->save();
     }

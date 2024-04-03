@@ -30,14 +30,7 @@ class UserFactory extends Factory
             'name' => fake()->unique()->word(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'role' => UserRole::USER
         ];
-    }
-
-    public function configure()
-    {
-        return $this->afterMaking(function (User $user) {
-            $role = Role::where('name', UserRole::USER)->firstOrFail();
-            $user->role()->associate($role);
-        });
     }
 }

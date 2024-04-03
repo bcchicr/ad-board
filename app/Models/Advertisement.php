@@ -10,6 +10,13 @@ class Advertisement extends Model
 {
     use HasFactory;
 
+    protected function casts(): array
+    {
+        return [
+            'published_at' => 'datetime',
+        ];
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

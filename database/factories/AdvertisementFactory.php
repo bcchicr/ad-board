@@ -22,6 +22,7 @@ class AdvertisementFactory extends Factory
         return [
             'title' => fake()->sentence(3),
             'content' => fake()->text(),
+            'published_at' => now(),
         ];
     }
 

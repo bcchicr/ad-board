@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         DB::transaction(function () {
             $this->call([
-                RoleSeeder::class,
                 AdminSeeder::class,
                 UserSeeder::class,
                 SuperCategorySeeder::class,
