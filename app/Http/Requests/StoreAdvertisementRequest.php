@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\DTO\StoreAdvertisementDTO;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreAdvertisementRequest extends FormRequest
 {
@@ -12,7 +13,7 @@ class StoreAdvertisementRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Auth::check();
     }
 
     /**

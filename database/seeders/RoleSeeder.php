@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Role;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\UserRole;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class RoleSeeder extends Seeder
 {
@@ -14,14 +14,10 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::query()
-            ->firstOrCreate([
-                'name' => 'admin'
+        foreach (UserRole::cases() as $role) {
+            Role::query()->firstOrCreate([
+                'name' => $role->value
             ]);
-
-        Role::query()
-            ->firstOrCreate([
-                'name' => 'user'
-            ]);
+        }
     }
 }

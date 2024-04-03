@@ -9,12 +9,18 @@
     </button>
     <div class="collapse navbar-collapse fs-5" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('users.login') }}">Войти</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('users.create') }}">Зарегистрироваться</a>
-        </li>
+        @auth
+          <li class="nav-item">
+            <x-control-button class="nav-link" :action="route('users.logout')" text="Выйти" />
+          </li>
+        @else
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('users.login') }}">Войти</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('users.create') }}">Зарегистрироваться</a>
+          </li>
+        @endauth
       </ul>
     </div>
   </div>

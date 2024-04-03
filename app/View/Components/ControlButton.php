@@ -1,19 +1,20 @@
 <?php
 
-namespace App\View\Components\Advertisements;
+namespace App\View\Components;
 
 use Closure;
-use App\Models\Advertisement;
-use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
+use Illuminate\View\Component;
 
-class ListItem extends Component
+class ControlButton extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public Advertisement $advertisement
+        public string $action,
+        public string $text,
+        public ?string $method = null,
     ) {
         //
     }
@@ -23,6 +24,6 @@ class ListItem extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.advertisements.list-item');
+        return view('components.control-button');
     }
 }
