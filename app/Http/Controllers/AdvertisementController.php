@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetPublishedAdvertisementsRequest;
 use App\Http\Requests\StoreAdvertisementRequest;
 use App\Models\Advertisement;
 use App\Models\SuperCategory;
@@ -13,13 +14,18 @@ class AdvertisementController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $advertisements = Advertisement::query()
-            ->latest()
-            ->paginate(15);
+    public function index(
+        GetPublishedAdvertisementsRequest $request,
+        AdvertisementService $advertisementService
+    ) {
+        $advertisements = $advertisementService->getPublished($request->getDTO());
 
-        return view('advertisements.index', compact('advertisements'));
+        return view('advertisements.index', [
+            'advertisements' => $advertisements,
+            'searchValue' => $request->input('search'),
+            'superCategoryId' => $request->input('category-id'),
+            'categoryId' => $request->input('category'),
+        ]);
     }
 
     /**
