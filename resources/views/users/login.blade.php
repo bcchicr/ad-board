@@ -1,7 +1,12 @@
 <x-layout>
   <x-simple-link :href="route('ads.index')" text="На главную" />
   <x-card class="p-4">
-    <h2 class="text-center">Вход</h2>
+    <div class="text-center">
+      <h2 class="mb-0">Вход</h2>
+      <p class="">
+        Зайти, чтобы предлагать объвления
+      </p>
+    </div>
     <form class="" action="{{ route('users.authenticate') }}" method="POST">
       @csrf
       <div class="col-6 offset-3">

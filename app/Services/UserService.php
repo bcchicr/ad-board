@@ -12,7 +12,7 @@ final class UserService
 {
     public function store(
         StoreUserDTO $request,
-        UserRole $role = UserRole::User
+        UserRole $role = UserRole::USER
     ): bool {
         $role = Role::query()->where('name', $role)->firstOrFail();
 
