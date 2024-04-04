@@ -17,6 +17,10 @@ class Advertisement extends Model
             'published_at' => 'datetime',
         ];
     }
+    public function isPublished()
+    {
+        return isset($this->published_at);
+    }
 
     public function scopeSearch(
         Builder $query,
@@ -27,7 +31,6 @@ class Advertisement extends Model
         }
         $query->where('title', 'LIKE', '%' . $searchValue . '%');
     }
-
     public function scopeSuperCategoryFilter(
         Builder $query,
         ?string $superCategory,
@@ -41,7 +44,6 @@ class Advertisement extends Model
         $categories = $superCategory->categories;
         $query->whereBelongsTo($categories);
     }
-
     public function scopeCategoryFilter(
         Builder $query,
         ?string $category,
@@ -54,7 +56,6 @@ class Advertisement extends Model
             ->firstOrFail();
         $query->whereBelongsTo($category);
     }
-
 
     public function scopePublished(Builder $query)
     {

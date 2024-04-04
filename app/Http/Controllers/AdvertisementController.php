@@ -8,6 +8,8 @@ use App\Models\Advertisement;
 use App\Models\SuperCategory;
 use App\Services\AdvertisementService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class AdvertisementController extends Controller
 {
@@ -66,27 +68,44 @@ class AdvertisementController extends Controller
         return view('advertisements.show', compact('advertisement'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+    public function publish(
+        string $id,
+        AdvertisementService $advertisementService
+    ) {
+        Session::reflash();
+        if (!$advertisementService->publish($id)) {
+            return redirect()->back()->withErrors([
+                'controls' => 'Не удалось опубликовать объявление'
+            ]);
+        }
+        return redirect()->route('ads.waiting');
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function decline(
+        string $id,
+        AdvertisementService $advertisementService
+    ) {
+        Session::reflash();
+        if (!$advertisementService->destroy($id)) {
+            return redirect()->back()->withErrors([
+                'controls' => 'Не удалось отклонить объявление'
+            ]);
+        }
+        return redirect()->route('ads.waiting');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(
+        string $id,
+        AdvertisementService $advertisementService
+    ) {
+        Session::reflash();
+        if (!$advertisementService->destroy($id)) {
+            return redirect()->back()->withErrors([
+                'controls' => 'Не удалось удалить объявление'
+            ]);
+        }
+        return redirect()->route('ads.index');
     }
 }

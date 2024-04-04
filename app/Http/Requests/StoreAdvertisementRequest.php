@@ -26,7 +26,14 @@ class StoreAdvertisementRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
-            'category-id' => ['required', 'exists:categories,id']
+            'category-id' => ['required', 'int', 'exists:categories,id']
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'category-id' => 'категория'
         ];
     }
 

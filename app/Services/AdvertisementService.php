@@ -33,4 +33,25 @@ final class AdvertisementService
             ->search($request->search)
             ->latest('published_at');
     }
+    public function publish(int $id): bool
+    {
+        $advertisement = Advertisement::query()
+            ->find($id);
+        if (!$advertisement) {
+            return false;
+        }
+
+        $advertisement->published_at = now();
+        return $advertisement->save();
+    }
+    public function destroy(int $id): bool
+    {
+        return false;
+        $advertisement = Advertisement::query()
+            ->find($id);
+        if (!$advertisement) {
+            return false;
+        }
+        return $advertisement->delete();
+    }
 }

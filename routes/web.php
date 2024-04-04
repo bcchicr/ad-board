@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\PreservePreviousUrl;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,9 +19,12 @@ Route::controller(AdvertisementController::class)
 
         Route::middleware('admin')->group(function () {
             Route::get('/advertisements/waiting', 'waiting')->name('waiting');
+            Route::patch('/advertisements/{advertisement}/publish', 'publish')->name('publish');
+            Route::delete('/advertisements/{advertisement}/decline', 'decline')->name('decline');
+            Route::delete('/advertisements/{advertisement}', 'destroy')->name('destroy');
         });
 
-        Route::get('/advertisements/{advertisement}', 'show')->name('show');
+        Route::get('/advertisements/{advertisement}', 'show')->name('show')->middleware(PreservePreviousUrl::class);
         Route::get('/advertisements/{superCategory?}/{category?}', 'index')->name('index');
     });
 
