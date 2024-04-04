@@ -46,4 +46,9 @@ class UserController extends Controller
 
         return redirect()->route('ads.index');
     }
+    public function show()
+    {
+        $user = Auth::user();
+        return view('users.show', compact('user'));
+    }
 }

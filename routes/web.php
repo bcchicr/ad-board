@@ -33,6 +33,7 @@ Route::controller(UserController::class)
     ->group(function () {
         Route::middleware('auth')->group(function () {
             Route::post('/logout', 'logout')->name('logout');
+            Route::get('/profile', 'show')->name('show');
         });
 
         Route::middleware('guest')->group(function () {

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\GetPublishedAdvertisementsRequest;
-use App\Http\Requests\StoreAdvertisementRequest;
 use App\Models\Advertisement;
 use App\Models\SuperCategory;
+use Illuminate\Support\Facades\Auth;
 use App\Services\AdvertisementService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\URL;
+use App\Http\Requests\StoreAdvertisementRequest;
+use App\Http\Requests\GetPublishedAdvertisementsRequest;
 
 class AdvertisementController extends Controller
 {
@@ -65,6 +64,13 @@ class AdvertisementController extends Controller
      */
     public function show(Advertisement $advertisement)
     {
+        /**
+         * @var ?App\Models\User $user
+         */
+        $user = Auth::user();
+        if (!$advertisement->isPublished() && !$user?->isAdmin()) {
+            abort(404);
+        }
         return view('advertisements.show', compact('advertisement'));
     }
 
