@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\UserRole;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -26,16 +27,10 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'name' => fake()->unique()->word(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'role' => UserRole::USER
         ];
-    }
-
-    public function configure()
-    {
-        return $this->afterMaking(function (User $user) {
-            $user->role()->associate(Role::where('name', 'user')->firstOrFail());
-        });
     }
 }

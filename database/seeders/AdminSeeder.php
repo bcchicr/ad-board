@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Role;
 use App\Models\User;
 use RuntimeException;
+use App\Enums\UserRole;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
 
@@ -18,13 +19,15 @@ class AdminSeeder extends Seeder
         if (!$this->hasCredentials()) {
             throw new RuntimeException('Cannot seed admin. Credentials were not provided');
         }
-        $adminRole = Role::query()->where('name', 'admin')->firstOrFail();
 
-        $admin = new User();
-        $admin->name = config('admin.name');
-        $admin->password = config('admin.password');
-        $admin->role()->associate($adminRole);
-
+        $admin =  User::query()
+            ->firstOrNew(
+                ['name' => config('admin.name'),],
+                [
+                    'password' => config('admin.password'),
+                    'role' => UserRole::ADMIN
+                ]
+            );
         $admin->save();
     }
     private function hasCredentials(): bool

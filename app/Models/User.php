@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Enums\UserRole;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -29,6 +31,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function isAdmin(): bool
+    {
+        return $this->role === UserRole::ADMIN;
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -38,11 +45,11 @@ class User extends Authenticatable
     {
         return [
             'password' => 'hashed',
+            'role' => UserRole::class
         ];
     }
-
-    public function role(): BelongsTo
+    public function advertisements(): HasMany
     {
-        return $this->belongsTo(Role::class);
+        return $this->hasMany(Advertisement::class);
     }
 }
