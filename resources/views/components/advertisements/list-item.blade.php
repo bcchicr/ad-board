@@ -7,7 +7,9 @@
       </div>
     @endif
     <div class="">
-      <h3><a href="{{ route('ads.show', $advertisement->id) }}">{{ $advertisement->title }}</a></h3>
+      <h3><a
+          href="{{ route('ads.show', $advertisement->id) }}">{{ $advertisement->title }}</a>
+      </h3>
       <p>{{ Str::limit($advertisement->content, 200) }}</p>
     </div>
   </div>

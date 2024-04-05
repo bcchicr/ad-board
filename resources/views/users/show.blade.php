@@ -1,20 +1,22 @@
+@php
+  $profile = $user->profile;
+@endphp
 <x-layout>
-  <x-simple-link :href="route('ads.index')"
-    text="На главную" />
+  <x-simple-link :href="route('ads.index')" text="На главную" />
   <x-card class="mb-3 p-4">
     <div class="position-relative">
       <div class="row">
-        <div class="col-4">
-          <img src="{{ asset('images/blank_avatar.jpg') }}"
-            class="img-fluid img-thumbnail object-fit-cover">
+        <div class="col-md-4 text-center">
+          <x-profiles.avatar :$profile />
+          @can('update', $profile)
+            <a href="{{ route('profiles.edit', $profile) }}">Редактировать</a>
+          @endcan
         </div>
-        <div class="col-8">
-          <h2 class="{{ $user->is_banned ? 'text-secondary text-decoration-line-through' : '' }}">
+        <div class="col-md-8">
+          <h2
+            class="{{ $user->is_banned ? 'text-secondary text-decoration-line-through' : '' }}">
             {{ $user->name }}
           </h2>
-          @php
-            $profile = $user->profile;
-          @endphp
           @if ($profile->fullName())
             <p>
               <b>Имя:</b>
@@ -35,7 +37,7 @@
           @endif
         </div>
       </div>
-      <div class="position-absolute top-0 end-0">
+      <div class="d-flex justify-content-center justify-content-md-end">
         <x-users.controls :$user />
       </div>
       @error('controls')
@@ -45,7 +47,11 @@
   </x-card>
   <h3>Объявления пользователя:</h3>
   @php
-    $advertisements = Auth::user()->isAdmin() ? $user->advertisements : $user->advertisementsPublished;
+    $advertisements = Auth::user()?->isAdmin()
+        ? $user->advertisements()
+        : $user->advertisementsPublished();
+    $advertisements = $advertisements->paginate(10);
   @endphp
   <x-advertisements.ad-list :$advertisements />
+  {{ $advertisements->links() }}
 </x-layout>

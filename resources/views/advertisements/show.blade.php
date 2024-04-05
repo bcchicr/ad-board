@@ -1,6 +1,5 @@
 <x-layout>
-  <x-simple-link :href='url()->previous()'
-    text="Назад" />
+  <x-simple-link :href='url()->previous()' text="Назад" />
   <x-card class="mt-1 p-4">
     <div class="position-relative">
       <h2 class="text-center">{{ $advertisement->title }}</h2>
@@ -14,7 +13,7 @@
         </div>
       @endif
       @if ($advertisement->image_path)
-        <div class="w-50 mx-auto">
+        <div class="col-lg-6 offset-lg-3">
           <img src="{{ asset('storage/' . $advertisement->image_path) }}"
             class="img-fluid img-thumbnail object-fit-cover ">
         </div>

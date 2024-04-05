@@ -1,7 +1,6 @@
 <x-layout>
-  <x-simple-link :href="route('ads.index')"
-    text="На главную" />
-  <x-card class="p-4">
+  <x-simple-link :href="route('ads.index')" text="На главную" />
+  <x-card class="mb-3 p-4">
     <div class="text-center">
       <h2 class="mb-0">Вход</h2>
       <p class="">
@@ -11,32 +10,21 @@
         <p class="text-danger">{{ $message }}</p>
       @enderror
     </div>
-    <form class=""
-      action="{{ route('users.authenticate') }}"
-      method="POST">
+    <form class="" action="{{ route('users.authenticate') }}" method="POST">
       @csrf
-      <div class="col-6 offset-3">
+      <div class="col-10 offset-1 col-md-6 offset-md-3">
         <div class="mb-3">
-          <label for="title-field"
-            class="form-label">Логин:</label>
-          <input id="title-field"
-            name="name"
-            type="text"
-            class="form-control"
-            value="{{ old('name') }}"
-            required>
+          <label for="title-field" class="form-label">Логин:</label>
+          <input id="title-field" name="name" type="text"
+            class="form-control" value="{{ old('name') }}" required>
           @error('name')
             <p class="text-danger">{{ $message }}</p>
           @enderror
         </div>
         <div class="mb-3">
-          <label for="password-field"
-            class="form-label">Пароль:</label>
-          <input id="password-field"
-            name="password"
-            type="password"
-            class="form-control"
-            required>
+          <label for="password-field" class="form-label">Пароль:</label>
+          <input id="password-field" name="password" type="password"
+            class="form-control" required>
           @error('password')
             <p class="text-danger">{{ $message }}</p>
           @enderror

@@ -5,13 +5,15 @@
   @include('partials._search')
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb mb-0 fs-4">
-      <li class="breadcrumb-item fw-bold"><a href="{{ route('ads.index') }}">Всe</a>
+      <li class="breadcrumb-item fw-bold"><a
+          href="{{ route('ads.index') }}">Всe</a>
       </li>
       @php
         $superCategory = Request::route('superCategory');
       @endphp
       @if ($superCategory)
-        <li class="breadcrumb-item"><a href="{{ route('ads.index', [$superCategory]) }}">{{ $superCategory }}</a>
+        <li class="breadcrumb-item"><a
+            href="{{ route('ads.index', [$superCategory]) }}">{{ $superCategory }}</a>
         </li>
         @php
           $category = Request::route('category');
