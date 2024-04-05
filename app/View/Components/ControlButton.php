@@ -13,7 +13,6 @@ class ControlButton extends Component
      */
     public function __construct(
         public string $action,
-        public string $text,
         public ?string $method = null,
     ) {
         //

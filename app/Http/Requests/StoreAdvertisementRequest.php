@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\DTO\StoreAdvertisementDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\File;
 
 class StoreAdvertisementRequest extends FormRequest
 {
@@ -26,14 +27,19 @@ class StoreAdvertisementRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
-            'category-id' => ['required', 'int', 'exists:categories,id']
+            'category-id' => ['required', 'int', 'exists:categories,id'],
+            'picture' => [
+                File::image()
+                    ->max('2mb'),
+            ],
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'category-id' => 'категория'
+            'category-id' => 'категория',
+            'picture' => 'картинка'
         ];
     }
 
@@ -42,7 +48,8 @@ class StoreAdvertisementRequest extends FormRequest
         return new StoreAdvertisementDTO(
             $this->get('title'),
             $this->get('content'),
-            $this->get('category-id')
+            $this->get('category-id'),
+            $this->file('picture'),
         );
     }
 }

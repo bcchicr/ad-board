@@ -5,7 +5,8 @@
     <h2 class="text-center">Предложить объявление</h2>
     <form class=""
       action="{{ route('ads.store') }}"
-      method="POST">
+      method="POST"
+      enctype="multipart/form-data">
       @csrf
       <div class="mb-3">
         <label for="title-field"
@@ -33,7 +34,7 @@
           <p class="text-danger">{{ $message }}</p>
         @enderror
       </div>
-      <div class="mb-4">
+      <div class="mb-3">
         <label for="category-field"
           class="form-label">Категория:</label>
         <select class="form-select"
@@ -49,6 +50,17 @@
           @endforeach
         </select>
         @error('category-id')
+          <p class="text-danger">{{ $message }}</p>
+        @enderror
+      </div>
+      <div class="mb-4">
+        <label for="picture-field"
+          class="form-label">Картинка (необязательно):</label>
+        <input class="form-control"
+          name="picture"
+          type="file"
+          id="picture-field">
+        @error('picture')
           <p class="text-danger">{{ $message }}</p>
         @enderror
       </div>

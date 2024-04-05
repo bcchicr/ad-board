@@ -7,8 +7,9 @@
       @auth
         @if ($user->id === Auth::user()->id)
           <x-control-button class="btn btn-outline-danger"
-            :action="route('users.logout')"
-            text="Выйти" />
+            :action="route('users.logout')">
+            Выйти
+          </x-control-button>
         @elseif (Auth::user()->isAdmin())
           @php
             if ($user->is_banned) {
@@ -23,10 +24,14 @@
           @endphp
           <x-control-button class="btn {{ $style }}"
             :action="route($route, $user->id)"
-            method="PATCH"
-            :$text />
+            method="PATCH">
+            {{ $text }}
+          </x-control-button>
         @endif
       @endauth
     </div>
+    @error('controls')
+      <p class="text-danger text-center mb-0">{{ $message }}</p>
+    @enderror
   </x-card>
 </x-layout>

@@ -58,7 +58,6 @@ class UserController extends Controller
         string $id,
         UserService $userService
     ) {
-        Session::reflash();
         if (!$userService->ban($id)) {
             return redirect()->back()->withErrors([
                 'controls' => 'Не удалось забанить пользователя'
@@ -71,7 +70,6 @@ class UserController extends Controller
         string $id,
         UserService $userService
     ) {
-        Session::reflash();
         if (!$userService->unBan($id)) {
             return redirect()->back()->withErrors([
                 'controls' => 'Не удалось разбанить пользователя'

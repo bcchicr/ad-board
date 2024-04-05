@@ -5,5 +5,7 @@
     @method($method)
   @endif
   <button {{ $attributes }}
-    type="submit">{{ $text }}</button>
+    type="submit">
+    {{ $slot }}
+  </button>
 </form>
