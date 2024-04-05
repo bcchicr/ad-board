@@ -1,7 +1,6 @@
 <x-layout>
   <h2 class="text-center mb-0">Все пользователи</h2>
-  <x-simple-link :href="route('ads.index')"
-    text="На главную" />
+  <x-simple-link :href="route('ads.index')" text="На главную" />
   @include('partials._search')
   <div class="mt-3">
 

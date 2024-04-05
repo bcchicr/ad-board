@@ -2,8 +2,7 @@
   $profile = $user->profile;
 @endphp
 <x-layout>
-  <x-simple-link :href="route('ads.index')"
-    text="На главную" />
+  <x-simple-link :href="route('ads.index')" text="На главную" />
   <x-card class="mb-3 p-4">
     <div class="position-relative">
       <div class="row">
@@ -24,7 +23,8 @@
           @endcan
         </div>
         <div class="col-8">
-          <h2 class="{{ $user->is_banned ? 'text-secondary text-decoration-line-through' : '' }}">
+          <h2
+            class="{{ $user->is_banned ? 'text-secondary text-decoration-line-through' : '' }}">
             {{ $user->name }}
           </h2>
           @if ($profile->fullName())
@@ -57,7 +57,11 @@
   </x-card>
   <h3>Объявления пользователя:</h3>
   @php
-    $advertisements = Auth::user()->isAdmin() ? $user->advertisements : $user->advertisementsPublished;
+    $advertisements = Auth::user()->isAdmin()
+        ? $user->advertisements()
+        : $user->advertisementsPublished();
+    $advertisements = $advertisements->paginate(10);
   @endphp
   <x-advertisements.ad-list :$advertisements />
+  {{ $advertisements->links() }}
 </x-layout>

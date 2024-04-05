@@ -1,6 +1,5 @@
 <x-layout>
-  <x-simple-link :href='url()->previous()'
-    text="Назад" />
+  <x-simple-link :href='url()->previous()' text="Назад" />
   <x-card class="mt-1 p-4">
     <div class="position-relative">
       <h2 class="text-center">{{ $advertisement->title }}</h2>

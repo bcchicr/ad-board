@@ -1,6 +1,5 @@
 @if ($user->id === Auth::user()->id)
-  <x-control-button class="btn btn-outline-danger"
-    :action="route('users.logout')">
+  <x-control-button class="btn btn-outline-danger" :action="route('users.logout')">
     Выйти
   </x-control-button>
 @elseif (Auth::user()->isAdmin())
@@ -15,8 +14,7 @@
         $route = 'users.ban';
     }
   @endphp
-  <x-control-button class="btn {{ $style }}"
-    :action="route($route, $user->id)"
+  <x-control-button class="btn {{ $style }}" :action="route($route, $user->id)"
     method="PATCH">
     {{ $text }}
   </x-control-button>

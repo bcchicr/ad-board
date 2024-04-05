@@ -8,6 +8,7 @@
         href="{{ route('ads.index', [$superCategory->name]) }}">{{ $superCategory->name }}</a>
     </li>
     <li class="breadcrumb-item"><a
-        href="{{ route('ads.index', [$superCategory->name, $category->name]) }}">{{ $category->name }}</a></li>
+        href="{{ route('ads.index', [$superCategory->name, $category->name]) }}">{{ $category->name }}</a>
+    </li>
   </ol>
 </nav>
