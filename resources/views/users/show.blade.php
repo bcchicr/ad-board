@@ -6,7 +6,7 @@
   <x-card class="mb-3 p-4">
     <div class="position-relative">
       <div class="row">
-        <div class="col-4 text-center">
+        <div class="col-md-4 text-center">
           @php
             if ($profile->avatar_path) {
                 $avatarPath = 'storage/' . $profile->avatar_path;
@@ -22,7 +22,7 @@
             <a href="{{ route('profiles.edit', $profile) }}">Редактировать</a>
           @endcan
         </div>
-        <div class="col-8">
+        <div class="col-md-8">
           <h2
             class="{{ $user->is_banned ? 'text-secondary text-decoration-line-through' : '' }}">
             {{ $user->name }}
@@ -47,7 +47,7 @@
           @endif
         </div>
       </div>
-      <div class="position-absolute top-0 end-0">
+      <div class="d-flex justify-content-center justify-content-md-end">
         <x-users.controls :$user />
       </div>
       @error('controls')
@@ -57,7 +57,7 @@
   </x-card>
   <h3>Объявления пользователя:</h3>
   @php
-    $advertisements = Auth::user()->isAdmin()
+    $advertisements = Auth::user()?->isAdmin()
         ? $user->advertisements()
         : $user->advertisementsPublished();
     $advertisements = $advertisements->paginate(10);

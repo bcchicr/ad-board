@@ -39,7 +39,6 @@ Route::controller(UserController::class)
         });
         Route::middleware('auth')->group(function () {
             Route::post('/logout', 'logout')->name('logout');
-            Route::get('/users/{user}', 'show')->name('show')->middleware(PreservePreviousUrl::class);
         });
 
         Route::middleware('guest')->group(function () {
@@ -49,6 +48,8 @@ Route::controller(UserController::class)
             Route::get('/login', 'login')->name('login');
             Route::post('/users/authenticate', 'authenticate')->name('authenticate');
         });
+
+        Route::get('/users/{user}', 'show')->name('show')->middleware(PreservePreviousUrl::class);
     });
 
 Route::controller(ProfileController::class)

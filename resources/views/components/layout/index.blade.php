@@ -20,7 +20,7 @@
   <main class="flex-shrink-0">
     <div class="container mt-3">
       <div class="row">
-        <div class="col-8 offset-2">
+        <div class="col-10 offset-1 col-md-8 offset-md-2">
           {{ $slot }}
         </div>
       </div>

@@ -12,7 +12,7 @@
     </div>
     <form class="" action="{{ route('users.authenticate') }}" method="POST">
       @csrf
-      <div class="col-6 offset-3">
+      <div class="col-10 offset-1 col-md-6 offset-md-3">
         <div class="mb-3">
           <label for="title-field" class="form-label">Логин:</label>
           <input id="title-field" name="name" type="text"

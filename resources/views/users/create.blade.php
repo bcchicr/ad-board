@@ -1,10 +1,10 @@
 <x-layout>
   <x-simple-link :href="route('ads.index')" text="На главную" />
-  <x-card class="p-4">
+  <x-card class="mb-3 p-4">
     <h2 class="text-center">Регистрация</h2>
     <form class="" action="{{ route('users.store') }}" method="POST">
       @csrf
-      <div class="col-6 offset-3">
+      <div class="col-10 offset-1 col-md-6 offset-md-3">
         <div class="mb-3">
           <label for="title-field" class="form-label">Логин:</label>
           <input class="form-control" id="title-field" name="name"
@@ -27,7 +27,7 @@
           <input class="form-control" id="password-confirmation-field"
             name="password_confirmation" type="password" required>
         </div>
-        <button class="d-block w-75 mx-auto btn btn-primary btn-lg mb-3"
+        <button class="d-block w-100 btn btn-primary btn-md-lg mb-3"
           type="submit">Зарегистрироваться</button>
         <p class="text-center">
           Уже есть аккаунт?

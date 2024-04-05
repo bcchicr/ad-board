@@ -6,7 +6,7 @@
       method="POST" enctype="multipart/form-data">
       @csrf
       @method('PATCH')
-      <div class="col-8 offset-2">
+      <div class="col-md-6 offset-md-3">
         <div class="mb-3">
           <label for="first-name-field" class="form-label">Имя:</label>
           <input class="form-control" id="first-name-field" name="first-name"
@@ -48,7 +48,7 @@
           @enderror
         </div>
       </div>
-      <button class="d-block w-50 mx-auto btn btn-primary btn-lg mb-3"
+      <button class="d-block w-100 btn btn-primary btn-md-lg mb-3"
         type="submit">Редактировать</button>
       </div>
     </form>
