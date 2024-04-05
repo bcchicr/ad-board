@@ -1,8 +1,11 @@
+@php
+  $verb = Auth::user()?->isAdmin() ? 'Опубликовать' : 'Предложить';
+@endphp
 <x-layout>
   <x-simple-link :href="route('ads.index')"
     text="На главную" />
   <x-card class="p-4">
-    <h2 class="text-center">Предложить объявление</h2>
+    <h2 class="text-center">{{ $verb }} объявление</h2>
     <form class=""
       action="{{ route('ads.store') }}"
       method="POST"
@@ -65,7 +68,7 @@
         @enderror
       </div>
       <button class="d-block w-75 mx-auto btn btn-primary btn-lg"
-        type="submit">Предложить</button>
+        type="submit">{{ $verb }}</button>
     </form>
   </x-card>
 </x-layout>
