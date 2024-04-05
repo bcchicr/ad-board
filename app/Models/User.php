@@ -6,6 +6,7 @@ use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -30,7 +31,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-    
+
     /**
      * Get the attributes that should be cast.
      *
@@ -58,12 +59,20 @@ class User extends Authenticatable
         $query->where('name', 'LIKE', '%' . $searchValue . '%');
     }
 
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
+
     public function advertisements(): HasMany
     {
-        return $this->hasMany(Advertisement::class);
+        return $this->hasMany(Advertisement::class)
+            ->orderBy('published_at', 'desc');
     }
     public function advertisementsPublished(): HasMany
     {
-        return $this->hasMany(Advertisement::class)->published();
+        return $this->hasMany(Advertisement::class)
+            ->published()
+            ->latest('published_at');
     }
 }

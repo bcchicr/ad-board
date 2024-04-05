@@ -52,6 +52,12 @@ final class AdvertisementService
             ->search($request->search)
             ->latest('published_at');
     }
+    public function getWaiting()
+    {
+        return Advertisement::query()
+            ->waiting()
+            ->latest();
+    }
     public function publish(int $id): bool
     {
         $advertisement = Advertisement::query()

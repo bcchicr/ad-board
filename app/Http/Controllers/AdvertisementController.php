@@ -28,11 +28,10 @@ class AdvertisementController extends Controller
         ));
     }
 
-    public function waiting()
+    public function waiting(AdvertisementService $advertisementService)
     {
-        $advertisements = Advertisement::query()
-            ->waiting()
-            ->latest()
+        $advertisements = $advertisementService
+            ->getWaiting()
             ->paginate(15);
         return view('advertisements.waiting', compact('advertisements'));
     }
