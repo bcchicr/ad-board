@@ -5,7 +5,7 @@
     <div class="text-center">
       <h2 class="mb-0">Вход</h2>
       <p class="">
-        Зайти, чтобы предлагать объвления
+        Зайти, чтобы предлагать объявления
       </p>
       @error('auth')
         <p class="text-danger">{{ $message }}</p>

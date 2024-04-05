@@ -1,20 +1,21 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Users;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ControlButton extends Component
+class Controls extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public string $action,
-        public ?string $method = null,
-    ) {
+        public User $user
+    )
+    {
         //
     }
 
@@ -23,6 +24,6 @@ class ControlButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.control-button');
+        return view('components.users.controls');
     }
 }

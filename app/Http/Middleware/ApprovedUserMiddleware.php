@@ -2,13 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Enums\UserRole;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class ApprovedUserMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,12 +17,12 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         /**
-         * @var ?App\Models\User
+         * @var ?App\Models\User 
          */
         $user = Auth::user();
-        if ($user?->isAdmin()) {
-            return $next($request);
+        if (null !== $user && $user->is_banned && !$user->isAdmin()) {
+            return redirect()->route('ban-page');
         }
-        abort(404);
+        return $next($request);
     }
 }

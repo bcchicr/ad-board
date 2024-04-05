@@ -2,14 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AuthenticateUserRequest;
-use App\Http\Requests\StoreUserRequest;
-use App\Services\UserService;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\GetUsersRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\AuthenticateUserRequest;
 
 class UserController extends Controller
 {
+    public function index(
+        GetUsersRequest $request,
+        UserService $userService
+    ) {
+        $users = $userService
+            ->getUsers($request->getDTO())
+            ->paginate(15);
+        return view('users.index', compact('users'));
+    }
     public function create()
     {
         return view('users.create');
@@ -46,9 +57,33 @@ class UserController extends Controller
 
         return redirect()->route('ads.index');
     }
-    public function show()
+    public function show(User $user)
     {
-        $user = Auth::user();
+        // $user = Auth::user();
         return view('users.show', compact('user'));
+    }
+
+    public function ban(
+        string $id,
+        UserService $userService
+    ) {
+        if (!$userService->ban($id)) {
+            return redirect()->back()->withErrors([
+                'controls' => 'Не удалось забанить пользователя'
+            ]);
+        }
+        return redirect()->back();
+    }
+
+    public function unBan(
+        string $id,
+        UserService $userService
+    ) {
+        if (!$userService->unBan($id)) {
+            return redirect()->back()->withErrors([
+                'controls' => 'Не удалось разбанить пользователя'
+            ]);
+        }
+        return redirect()->back();
     }
 }

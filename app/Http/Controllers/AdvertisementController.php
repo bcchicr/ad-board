@@ -28,11 +28,10 @@ class AdvertisementController extends Controller
         ));
     }
 
-    public function waiting()
+    public function waiting(AdvertisementService $advertisementService)
     {
-        $advertisements = Advertisement::query()
-            ->waiting()
-            ->latest()
+        $advertisements = $advertisementService
+            ->getWaiting()
             ->paginate(15);
         return view('advertisements.waiting', compact('advertisements'));
     }
@@ -64,6 +63,7 @@ class AdvertisementController extends Controller
      */
     public function show(Advertisement $advertisement)
     {
+        Session::keep('previous-url');
         /**
          * @var ?App\Models\User $user
          */
@@ -78,7 +78,7 @@ class AdvertisementController extends Controller
         string $id,
         AdvertisementService $advertisementService
     ) {
-        Session::reflash();
+        Session::keep('previous-url');
         if (!$advertisementService->publish($id)) {
             return redirect()->back()->withErrors([
                 'controls' => 'Не удалось опубликовать объявление'
@@ -90,7 +90,7 @@ class AdvertisementController extends Controller
         string $id,
         AdvertisementService $advertisementService
     ) {
-        Session::reflash();
+        Session::keep('previous-url');
         if (!$advertisementService->destroy($id)) {
             return redirect()->back()->withErrors([
                 'controls' => 'Не удалось отклонить объявление'
@@ -106,7 +106,7 @@ class AdvertisementController extends Controller
         string $id,
         AdvertisementService $advertisementService
     ) {
-        Session::reflash();
+        Session::keep('previous-url');
         if (!$advertisementService->destroy($id)) {
             return redirect()->back()->withErrors([
                 'controls' => 'Не удалось удалить объявление'

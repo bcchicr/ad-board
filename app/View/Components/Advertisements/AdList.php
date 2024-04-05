@@ -1,19 +1,19 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Advertisements;
 
 use Closure;
-use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 
-class ControlButton extends Component
+class AdList extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public string $action,
-        public ?string $method = null,
+        public $advertisements
     ) {
         //
     }
@@ -23,6 +23,6 @@ class ControlButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.control-button');
+        return view('components.advertisements.ad-list');
     }
 }
