@@ -13,7 +13,7 @@
         </div>
       @endif
       @if ($advertisement->image_path)
-        <div class="w-50 mx-auto">
+        <div class="col-lg-6 offset-lg-3">
           <img src="{{ asset('storage/' . $advertisement->image_path) }}"
             class="img-fluid img-thumbnail object-fit-cover ">
         </div>

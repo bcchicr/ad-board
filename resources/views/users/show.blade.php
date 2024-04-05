@@ -7,17 +7,7 @@
     <div class="position-relative">
       <div class="row">
         <div class="col-md-4 text-center">
-          @php
-            if ($profile->avatar_path) {
-                $avatarPath = 'storage/' . $profile->avatar_path;
-            } else {
-                $avatarPath = 'images/blank_avatar.jpg';
-            }
-          @endphp
-          <div class="ratio ratio-1x1">
-            <img src="{{ asset($avatarPath) }}"
-              class="img-fluid img-thumbnail object-fit-cover">
-          </div>
+          <x-profiles.avatar :$profile />
           @can('update', $profile)
             <a href="{{ route('profiles.edit', $profile) }}">Редактировать</a>
           @endcan
