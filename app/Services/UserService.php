@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Role;
 use App\Models\User;
 use App\Enums\UserRole;
 use App\DTO\StoreUserDTO;
@@ -27,5 +26,28 @@ final class UserService
         Auth::login($user);
 
         return true;
+    }
+
+    public function ban(int $id): bool
+    {
+        $user = User::query()
+            ->find($id);
+        if (!$user) {
+            return false;
+        }
+
+        $user->is_banned = true;
+        return $user->save();
+    }
+    public function unBan(int $id): bool
+    {
+        $user = User::query()
+            ->find($id);
+        if (!$user) {
+            return false;
+        }
+
+        $user->is_banned = false;
+        return $user->save();
     }
 }

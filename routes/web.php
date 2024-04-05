@@ -12,7 +12,7 @@ Route::get('/', function () {
 Route::controller(AdvertisementController::class)
     ->name('ads.')
     ->group(function () {
-        Route::middleware('auth')->group(function () {
+        Route::middleware(['auth', 'approved'])->group(function () {
             Route::get('/advertisements/create', 'create')->name('create');
             Route::post('/advertisements', 'store')->name('store');
         });
@@ -31,9 +31,13 @@ Route::controller(AdvertisementController::class)
 Route::controller(UserController::class)
     ->name('users.')
     ->group(function () {
+        Route::middleware('admin')->group(function () {
+            Route::patch('/users/{user}/ban', 'ban')->name('ban');
+            Route::patch('/users/{user}/un-ban', 'unBan')->name('un-ban');
+        });
         Route::middleware('auth')->group(function () {
             Route::post('/logout', 'logout')->name('logout');
-            Route::get('/profile', 'show')->name('show');
+            Route::get('/users/{user}', 'show')->name('show')->middleware(PreservePreviousUrl::class);
         });
 
         Route::middleware('guest')->group(function () {
@@ -44,3 +48,7 @@ Route::controller(UserController::class)
             Route::post('/users/authenticate', 'authenticate')->name('authenticate');
         });
     });
+
+Route::middleware('banned')->group(function () {
+    Route::get('/ban-page', fn () => view('ban-page'))->name('ban-page');
+});

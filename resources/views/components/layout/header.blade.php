@@ -36,16 +36,25 @@
           @endif
           <li class="nav-item">
             <a class="nav-link"
-              href="{{ route('users.show') }}">Профиль</a>
+              href="{{ route('users.show', Auth::user()->id) }}">
+              <i class="fa-solid fa-user"></i>
+              Профиль
+            </a>
           </li>
         @else
           <li class="nav-item">
             <a class="nav-link"
-              href="{{ route('users.login') }}">Войти</a>
+              href="{{ route('users.login') }}">
+              <i class="fa-solid fa-right-to-bracket"></i>
+              Войти
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link"
-              href="{{ route('users.create') }}">Зарегистрироваться</a>
+              href="{{ route('users.create') }}">
+              <i class="fa-solid fa-user-plus"></i>
+              Зарегистрироваться
+            </a>
           </li>
         @endauth
       </ul>

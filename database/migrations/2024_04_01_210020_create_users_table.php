@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->enum('role', UserRole::values());
+            $table->boolean('is_banned')->default(false);
             $table->timestamps();
         });
     }
