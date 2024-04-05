@@ -18,7 +18,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         /**
-         * @var ?App\Models\User $user
+         * @var ?App\Models\User
          */
         $user = Auth::user();
         if ($user?->isAdmin()) {

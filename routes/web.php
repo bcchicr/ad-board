@@ -34,6 +34,7 @@ Route::controller(UserController::class)
         Route::middleware('admin')->group(function () {
             Route::patch('/users/{user}/ban', 'ban')->name('ban');
             Route::patch('/users/{user}/un-ban', 'unBan')->name('un-ban');
+            Route::get('/users', 'index')->name('index');
         });
         Route::middleware('auth')->group(function () {
             Route::post('/logout', 'logout')->name('logout');

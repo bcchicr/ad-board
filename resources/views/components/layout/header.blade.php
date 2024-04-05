@@ -30,7 +30,7 @@
                 <li><a class="dropdown-item"
                     href="{{ route('ads.waiting') }}">Предложенные</a></li>
                 <li><a class="dropdown-item"
-                    href="#">Another action</a></li>
+                    href="{{ route('users.index') }}">Список пользователей</a></li>
               </ul>
             </li>
           @endif

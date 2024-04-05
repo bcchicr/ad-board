@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DTO\GetUsersDTO;
 use App\Models\User;
 use App\Enums\UserRole;
 use App\DTO\StoreUserDTO;
@@ -49,5 +50,11 @@ final class UserService
 
         $user->is_banned = false;
         return $user->save();
+    }
+    public function getUsers(GetUsersDTO $request)
+    {
+        return  User::query()
+            ->search($request->search)
+            ->orderBy('name');
     }
 }

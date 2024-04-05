@@ -6,12 +6,21 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\GetUsersRequest;
 use App\Http\Requests\StoreUserRequest;
-use Illuminate\Support\Facades\Session;
 use App\Http\Requests\AuthenticateUserRequest;
 
 class UserController extends Controller
 {
+    public function index(
+        GetUsersRequest $request,
+        UserService $userService
+    ) {
+        $users = $userService
+            ->getUsers($request->getDTO())
+            ->paginate(15);
+        return view('users.index', compact('users'));
+    }
     public function create()
     {
         return view('users.create');
@@ -63,7 +72,7 @@ class UserController extends Controller
                 'controls' => 'Не удалось забанить пользователя'
             ]);
         }
-        return redirect()->route('users.show', $id);
+        return redirect()->back();
     }
 
     public function unBan(
@@ -75,6 +84,6 @@ class UserController extends Controller
                 'controls' => 'Не удалось разбанить пользователя'
             ]);
         }
-        return redirect()->route('users.show', $id);
+        return redirect()->back();
     }
 }

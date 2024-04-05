@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Enums\UserRole;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -30,12 +30,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    public function isAdmin(): bool
-    {
-        return $this->role === UserRole::ADMIN;
-    }
-
+    
     /**
      * Get the attributes that should be cast.
      *
@@ -48,6 +43,21 @@ class User extends Authenticatable
             'role' => UserRole::class
         ];
     }
+    public function isAdmin(): bool
+    {
+        return $this->role === UserRole::ADMIN;
+    }
+
+    public function scopeSearch(
+        Builder $query,
+        ?string $searchValue
+    ) {
+        if (is_null($searchValue)) {
+            return;
+        }
+        $query->where('name', 'LIKE', '%' . $searchValue . '%');
+    }
+
     public function advertisements(): HasMany
     {
         return $this->hasMany(Advertisement::class);
