@@ -12,8 +12,8 @@ class Profile extends Model
 
     public function fullName(): string
     {
-        $fullName = $this->firstName ?? '';
-        $lastName = $this->lastName;
+        $fullName = $this->first_name ?? '';
+        $lastName = $this->last_name;
         if ($lastName) {
             $fullName .= ' ' . $lastName;
         }

@@ -1,7 +1,7 @@
 <x-layout>
   <x-simple-link :href="route('ads.index')"
     text="На главную" />
-  <x-card class="p-4">
+  <x-card class="mb-3 p-4">
     <div class="text-center">
       <h2 class="mb-0">Вход</h2>
       <p class="">

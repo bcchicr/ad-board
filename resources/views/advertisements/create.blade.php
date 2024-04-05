@@ -4,7 +4,7 @@
 <x-layout>
   <x-simple-link :href="route('ads.index')"
     text="На главную" />
-  <x-card class="p-4">
+  <x-card class="mb-3 p-4">
     <h2 class="text-center">{{ $verb }} объявление</h2>
     <form class=""
       action="{{ route('ads.store') }}"

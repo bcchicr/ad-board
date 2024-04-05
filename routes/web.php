@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdvertisementController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\PreservePreviousUrl;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +49,17 @@ Route::controller(UserController::class)
             Route::get('/login', 'login')->name('login');
             Route::post('/users/authenticate', 'authenticate')->name('authenticate');
         });
+    });
+
+Route::controller(ProfileController::class)
+    ->name('profiles.')
+    ->group(function () {
+        Route::get('/profile/{profile}/edit', 'edit')
+            ->can('update', 'profile')
+            ->name('edit');
+        Route::patch('/profile/{profile}', 'update')
+            ->can('update', 'profile')
+            ->name('update');
     });
 
 Route::middleware('banned')->group(function () {

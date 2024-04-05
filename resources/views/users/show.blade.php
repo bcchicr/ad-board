@@ -1,20 +1,32 @@
+@php
+  $profile = $user->profile;
+@endphp
 <x-layout>
   <x-simple-link :href="route('ads.index')"
     text="На главную" />
   <x-card class="mb-3 p-4">
     <div class="position-relative">
       <div class="row">
-        <div class="col-4">
-          <img src="{{ asset('images/blank_avatar.jpg') }}"
-            class="img-fluid img-thumbnail object-fit-cover">
+        <div class="col-4 text-center">
+          @php
+            if ($profile->avatar_path) {
+                $avatarPath = 'storage/' . $profile->avatar_path;
+            } else {
+                $avatarPath = 'images/blank_avatar.jpg';
+            }
+          @endphp
+          <div class="ratio ratio-1x1">
+            <img src="{{ asset($avatarPath) }}"
+              class="img-fluid img-thumbnail object-fit-cover">
+          </div>
+          @can('update', $profile)
+            <a href="{{ route('profiles.edit', $profile) }}">Редактировать</a>
+          @endcan
         </div>
         <div class="col-8">
           <h2 class="{{ $user->is_banned ? 'text-secondary text-decoration-line-through' : '' }}">
             {{ $user->name }}
           </h2>
-          @php
-            $profile = $user->profile;
-          @endphp
           @if ($profile->fullName())
             <p>
               <b>Имя:</b>
