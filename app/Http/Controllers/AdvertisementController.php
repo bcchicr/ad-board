@@ -96,7 +96,7 @@ class AdvertisementController extends Controller
                 'controls' => 'Не удалось отклонить объявление'
             ]);
         }
-        return redirect()->route('ads.waiting');
+        return redirect()->back();
     }
 
     /**
