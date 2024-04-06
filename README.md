@@ -1,4 +1,4 @@
-![image](https://github.com/bcchicr/ad-board/assets/160070250/cd64e6f3-8103-411f-89c0-9d2aaedd72f8)# Advertisement board
+# Advertisement board
 
 Сайт объявлений на базе фреймворка Laravel.
 
