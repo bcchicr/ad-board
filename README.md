@@ -1,4 +1,4 @@
-# Advertisement board
+![image](https://github.com/bcchicr/ad-board/assets/160070250/cd64e6f3-8103-411f-89c0-9d2aaedd72f8)# Advertisement board
 
 Сайт объявлений на базе фреймворка Laravel.
 
@@ -66,3 +66,10 @@ php artisan storage:link
 - Возможность для администратора банить и разбанивать пользователей
 - Возможность для администратора удалять опубликованные объявления
 - Адаптивный дизайн реализован при помощи Bootstrap 5
+
+## Некоторые скриншоты
+![image](https://github.com/bcchicr/ad-board/assets/160070250/6b561fee-619d-4b5b-80b4-629541b20b2b)
+![image](https://github.com/bcchicr/ad-board/assets/160070250/fb0baa1a-5bce-4581-95c0-f51c260c256f)
+![image](https://github.com/bcchicr/ad-board/assets/160070250/5a64d634-8d43-4f55-949d-7a3788d12196)
+
+
